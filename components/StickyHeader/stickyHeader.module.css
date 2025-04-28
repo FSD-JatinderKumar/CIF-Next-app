@@ -1,0 +1,119 @@
+.announcementBar {
+    background: #fee5c7;
+    border-bottom: 2px solid #f58220;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  .announcementBar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .announcementBar ul li a {
+    color: #000;
+    font-weight: 700;
+  }
+  
+  .stickyBar {
+    display: block;
+    bottom: 15%;
+    right: -138px;
+    position: fixed;
+    z-index: 1040;
+    width: 184px;
+  }
+  
+  .stickyBar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .stickyBar ul li {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+    background: #b1040e;
+    margin: 4px;
+    transition: all 0.2s ease-in;
+    padding: 0 10px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .stickyBar ul li a {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    line-height: 14px;
+  }
+  
+  .stickyBar ul li img {
+    width: auto;
+    height: 22px;
+    padding-right: 11px;
+  }
+  
+  .stickyBar ul li:hover {
+    margin-left: -122px;
+    background: #b1040e;
+  }
+  
+  .stickyBar ul li.apply-now-outer {
+    display: none;
+  }
+  
+  @media (max-width: 992px) {
+    .stickyBar ul li.apply-now-outer {
+      display: block;
+    }
+  
+    .stickyBar {
+      background: #b1040e;
+      bottom: 0;
+      right: 0;
+      position: fixed;
+      z-index: 9;
+      width: 100%;
+      display: block !important;
+    }
+  
+    .stickyBar ul {
+      display: flex;
+      justify-content: flex-start;
+      padding-left: 10px;
+    }
+  
+    .stickyBar ul li a .st-label {
+      display: none;
+    }
+  
+    .stickyBar ul li {
+      background: transparent;
+      box-shadow: none;
+      transition: all 0.2s ease-in;
+      padding: 10px 2px;
+      height: 50px;
+    }
+  
+    .stickyBar ul li .apply-now {
+      display: block;
+      font-size: 16px;
+      background: #fff;
+      color: #b1040e;
+      padding: 8px !important;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  
+    .stickyBar ul li:hover {
+      margin-left: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+  }
+  
