@@ -1,11 +1,10 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import HomePageContents from "./Home/HomePageContents";
 
 export default function Home() {
   return (
     <>
-      <HomePageContents />
+    <h1> To develope </h1>
     </>
   );
 }

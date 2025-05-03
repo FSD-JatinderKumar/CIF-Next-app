@@ -17,7 +17,7 @@ export default function LoginPage() {
             </div>
             <div className="col-md-6 p-md-5">
               <div className="auth-form-wrapper px-4 py-5">
-                <h2 className="mb-4">Login Page</h2>
+                <h2 className="mb-4">LPU User Login Page</h2>
                 <LoginForm />
               </div>
             </div>

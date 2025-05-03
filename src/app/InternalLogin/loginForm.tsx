@@ -5,10 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import {
   GetAuthoriseUserData,
-  saveUser,
+  saveUser,getUserDataApiCall,
   getStudentById,
-  loginInternalUser,
-  getEmployeeDetails,
+  loginInternalUser,  
   addToSession,
   setAuthToken,
 } from '@/app/apiCalls/apiCall';
@@ -48,7 +47,8 @@ export default function LoginForm() {
 
       let userData;
       if (role === 'Staff') {
-        userData = await getEmployeeDetails();
+        // userData = await getEmployeeDetails();
+        userData = await getUserDataApiCall();
       } else if (role === 'Student') {
         userData = await getStudentById(email);
       }
@@ -141,8 +141,8 @@ export default function LoginForm() {
       <div className="mb-4 text-center">
         <button type="submit" className="lpu-btn border-0 px-5 mb-3">Submit</button>
         <div className="d-flex justify-content-between">
-          <a href="/LpuLogin" className="link-btn">LPU User Login</a>
-          <a href="/recoverAccount" className="link-btn" style={{ color: '#ef7d00' }}>Recover Account</a>
+          <a href="/Login" className="link-btn" style={{ color: '#ef7d00' }}>External User Login</a>
+          <a href="/RecoverAccount" className="link-btn" style={{ color: '#ef7d00' }}>Recover Account</a>
         </div>
       </div>
     </form>

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GetAuthoriseUserData,saveUser, LoginJournalAccessTemp, addToCifSession ,addToSession} from '@/app/apiCalls/apiCall'
+import Swal from 'sweetalert2';
 
 
 type FormData = {
@@ -23,26 +24,46 @@ export default function LoginForm() {
 
     if (!uid || !password || !UserRoleS) {
       setLoginError('All fields are required.');
-      return;
+      // Swal.fire({
+      //   title: 'Provide all details',
+      //   text: 'Login Process',
+      //   icon: 'warning',
+      // })
+      // return;
     }
 
     const userRole = parseInt(UserRoleS);
     await AuthoriseUserNewWay(uid, password, userRole);
   };
-
   const AuthoriseUserNewWay = async (uid: string, password: string, role: any) => {
     try {
       const response = await GetAuthoriseUserData(uid, password, role);
-      if (response) {
+      if (response && Array.isArray(response) && response.length > 0 && response[0]?.email) {
         const email = response[0].email;
         await CreateToken(email, response);
+        setLoginError(''); // clear any previous error if login succeeds
       } else {
-        setLoginError('Invalid Login Details. Please check your journal and credentials.');
-        alert('Invalid Login Details');
+        Swal.fire({
+          title: 'Invalid Login Details.',
+          text: 'Login Process',
+          icon: 'warning',
+        })
+        
+        setTimeout(function(){
+          window.location.reload();
+       }, 5000);
+        // setLoginError('Invalid Login Details. Please check your journal and credentials.');
+        // window.location.reload(); // Reload on login failure
       }
     } catch (err) {
       console.error(err);
-      setLoginError('An error occurred during login.');
+      
+      Swal.fire({
+        title: 'Server Error.',
+        text: 'Login Process',
+        icon: 'warning',
+      })
+      window.location.reload(); // Reload on login failure
     }
   };
 
@@ -54,11 +75,12 @@ export default function LoginForm() {
         SetUserData(response);    // Proceed with session setup
       } else {
         setLoginError('Invalid credentials or token not returned.');
-        console.warn('⚠️ Token creation failed:', tokenData.message);
+        console.warn('Invalid Details ⚠️Login  failed', tokenData.message);
+        alert('Invalid Details ⚠️Login  failed');
       }
     } catch (err: any) {
       console.error('❌ Token creation error:', err);
-      setLoginError('Token creation failed.');
+      setLoginError('Server Error.');
     }
   };
   const SetUserData = (response: any) => {
@@ -137,8 +159,8 @@ export default function LoginForm() {
       <div className="mb-4 text-center">
         <button type="submit" className="lpu-btn border-0 px-5 mb-3">Submit</button>
         <div className="d-flex justify-content-between">
-          <a href="/LpuLogin" className="link-btn">LPU User Login</a>
-          <a href="/recoverAccount" className="link-btn" style={{ color: '#ef7d00' }}>Recover Account</a>
+          <a href="/InternalLogin" className="link-btn" style={{ color: '#ef7d00' }}> LPU User Login</a>
+          <a href="/RecoverAccount" className="link-btn" style={{ color: '#ef7d00' }}>Recover Account</a>
         </div>
       </div>
     </form>

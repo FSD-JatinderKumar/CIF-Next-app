@@ -63,6 +63,19 @@ export const GetAllInstrumentsData = async () => {
   }
 }
  
+export const FetchSpecifications = async () => {
+  try {     
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/LpuCIF/GetAllSpecifications`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    console.log('test '+JSON.stringify(response))
+    return response.data.item1 || [];
+  } catch (error) {
+    console.error('Error fetching Books data:', error);
+    throw error;
+  }
+}
+ 
 // 23-April-25
 
 
@@ -171,22 +184,44 @@ export const GetAuthoriseUserData = async (UserEmail: any, secreatKeys: any, use
   };
   
  
-export const getEmployeeDetails = async () => {
+// export const getEmployeeDetails = async () => {
+//   try {
+//     const token = getAuthToken();
+//     console.warn(JSON.stringify(token))
+//     // if (!token) logout();
+
+//     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/Mou/GetEmployeeDetails`, {
+//       headers: { Authorization: `Bearer ${authToken}` },
+//     });
+
+//     alert(JSON.stringify(response))
+//     console.log(JSON.stringify(response))
+//     if (!response) throw new Error('Failed to fetch employee details');
+
+//     const empData = await response.json();
+//     const emp = empData[0];
+//     if (!emp) throw new Error('No employee data found');
+//     return emp;
+//   } catch (error) {
+//     console.error('Error fetching user data:', error);
+//     logout();
+//   }
+// };
+ 
+
+export const getUserDataApiCall = async () => {
   try {
     const token = getAuthToken();
-    console.warn(JSON.stringify(token))
     if (!token) logout();
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/Mou/GetEmployeeDetails`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    alert(JSON.stringify(response))
-    console.log(JSON.stringify(response))
-    if (!response) throw new Error('Failed to fetch employee details');
+    if (!response.ok) throw new Error('Failed to fetch employee details');
 
     const empData = await response.json();
-    const emp = empData[0];
+    const emp = empData.item1?.[0];
     if (!emp) throw new Error('No employee data found');
     return emp;
   } catch (error) {
@@ -194,7 +229,6 @@ export const getEmployeeDetails = async () => {
     logout();
   }
 };
- 
 
 
 export const getStudentById = async (regNo:any) => {
@@ -217,3 +251,5 @@ export const getStudentById = async (regNo:any) => {
     logout();
   }
 };
+
+ 

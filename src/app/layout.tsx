@@ -4,6 +4,7 @@ import "./globals.css";
 import BootstrapClient from "../../BootstrapClient";
 import MobileStickyHeader from "../../components/StickyHeader/StickyHeader";
 import StickyFooter from "../../components/StickyFooter/StickyFooter";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

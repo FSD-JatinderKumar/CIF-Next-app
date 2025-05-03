@@ -1,0 +1,245 @@
+.callAction a {
+  cursor: pointer !important;
+}
+.lpuBtn,
+.applynow {
+  background: #ff9219 !important;
+  padding: 12px 16px !important;
+  color: #000 !important;
+  /* color: #fff !important; */
+  transition-duration: 0.4s;
+  display: inline-block;
+  font-size: 16px;
+  border: 0;
+  transition: 0.4s ease-in;
+}
+.lpuBtn:hover,
+.applynow:hover {
+  /* background: linear-gradient(0deg, rgba(8, 7, 8, 0.2), rgba(8, 7, 8, 0.2)), */
+  background: #ef7d00 !important;
+  transition: 0.4s ease-in;
+  color: #fff;
+}
+.lpu-btn-sm {
+  padding: 5px 10px !important;
+  font-size: 14px !important;
+}
+.selectedInstrument {
+  background-color: #ef7d00 !important;
+  color: white;
+  transform: scale(1.1);  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+}
+
+
+.grid{
+  display: grid;
+      grid-template-rows: repeat(var(--bs-rows, 1), 1fr);
+      grid-template-columns: repeat(var(--bs-columns, 12), 1fr);
+      gap: var(--bs-gap, 1.5rem);
+}
+.cifInstrumentBlock{
+  background-color: #f5efe3;
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 16px;
+  text-align: center;
+  display: grid ;
+  align-items: center;
+}
+
+/* CSS file (e.g., styles.css) */
+.instrumentGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);  
+  gap: 16px;  
+  margin: 0 auto;  
+  padding: 10px;  
+}
+/* 
+.instrumentBlock {
+  color: black;
+  background-color: #f5efe3;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #ddd; 
+  border-radius: 5px; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;  
+} */
+
+/* .instrumentBlock:hover {
+  transform: scale(1.05);  
+  color: black;
+  background-color: #ef7d00 !important;
+  
+}
+
+.instrumentLink {
+  color: #555; 
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.instrumentLink:hover {
+     text-decoration: underline ;  
+} */
+
+
+/*  33 */
+
+.cifInstrumentBlock {
+  background-color: #f5efe3;
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 16px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+}
+
+.instrumentGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.instrumentBlock {
+  color: black;
+  background-color: #f5efe3;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.instrumentBlock:hover {
+  transform: scale(1.05);
+  color: black;
+  background-color: #ef7d00 !important;
+}
+
+.instrumentLink {
+  color: #555;
+  text-decoration: none;
+  font-weight: bold;
+}
+.section {
+  padding: 60px 0;
+}
+
+.bgDarkYellow {
+  background-color: #f8c51c; /* Replace with your desired dark-yellow color */
+}
+
+.headingWraper .mainHead h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.cifSlider {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.cifItem {
+  width: 300px;
+  text-align: center;
+}
+
+.cifItem img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cifItem strong {
+  font-size: 1rem;
+  color: #333;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.imgFluid {
+  max-width: 100%;
+  height: auto;
+}
+
+
+ 
+
+.img-container {
+position: relative;
+width: 100%;
+height: auto;
+}
+.spinner-border {
+z-index: 10;
+}
+
+/* .selectedInstrument {
+    background-color: #ef7d00 !important;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-rows: repeat(var(--bs-rows, 1), 1fr);
+    grid-template-columns: repeat(var(--bs-columns, 12), 1fr);
+    gap: var(--bs-gap, 1.5rem);
+  }
+  
+  .cifInstrumentBlock {
+    background-color: #f5efe3;
+    color: #555;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 12px 16px;
+    text-align: center;
+    display: grid;
+    align-items: center;
+  }
+  
+  .instrumentGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  
+  .instrumentBlock {
+    color: black;
+    background-color: #f5efe3;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .instrumentBlock:hover {
+    transform: scale(1.05);
+    color: black;
+    background-color: #ef7d00 !important;
+  }
+  
+  .instrumentLink {
+    color: #555;
+    text-decoration: none;
+    font-weight: bold;
+  }
+   */

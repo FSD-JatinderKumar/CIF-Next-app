@@ -120,15 +120,12 @@ export default function HomePageContents() {
                         <div className="main-head">
                             <h2>Facilities</h2>
                             <div className="call-action">
-                                <a href="/ourInstruments">
-                                    <a className="link-btn">
-                                        <img
-                                            src="https://www.lpu.in/lpu-assets/images/icons/chevron-right.svg"
-                                            alt="Icon"
-                                        />
+                                {/* <a href="/ourInstruments" className="link-btn">                                        
                                         Know more
-                                    </a>
-                                </a>
+                                    </a> */}
+                                    <Link href="/ourInstruments" className="link-btn">
+                                    <img src="https://www.lpu.in/lpu-assets/images/icons/chevron-right.svg" alt="Icon" />Know more
+                                    </Link>
                             </div>
                         </div>
                     </div>
