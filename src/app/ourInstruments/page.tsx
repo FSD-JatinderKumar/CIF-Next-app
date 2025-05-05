@@ -37,6 +37,19 @@ export default function OurInstrumentsPage() {
         ]);
         setInstruments(instrumentData || []);
         setSpecifications(specData || []);
+
+        // Get instrument ID from query param
+        const params = new URLSearchParams(window.location.search);
+        const selectedId = params.get('id');
+
+        if (selectedId) {
+          const selected = instrumentData.find(
+            (inst: any) => inst.id.toString() === selectedId
+          );
+          if (selected) {
+            setSelectedInstrument(selected);
+          }
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -68,24 +81,12 @@ export default function OurInstrumentsPage() {
           </p>
 
           <div className={styles.instrumentGrid} id="instrumentGrid">
-             {instruments.map((instrument) => (
-               <div
-                 key={instrument.id}
-                 className={styles.instrumentBlock + ` g-col-lg-3 g-col-6 d-grid ${selectedInstrument?.id === instrument.id ? 'selected-instrument' : ''
-                   }`}
-               >
-                 <button className={styles.instrumentLink + " btn "} onClick={() => handleInstrumentClick(instrument)} data-is-active={instrument.isActive ? 'true' : 'false'} >
-                   {instrument.instrumentName}
-                 </button>
-               </div>
-             ))}
-           </div>
-
-          {/* <div className={`${styles.instrumentGrid} row`} id="instrumentGrid">
             {instruments.map((instrument) => (
               <div
                 key={instrument.id}
-                className={`col-md-3 col-sm-6 mb-3 d-grid ${selectedInstrument?.id === instrument.id ? 'selected-instrument' : ''}`}
+                className={`${styles.instrumentBlock} g-col-lg-3 g-col-6 d-grid ${
+                  selectedInstrument?.id === instrument.id ? styles.selectedInstrument : ''
+                }`}
               >
                 <button
                   className={`${styles.instrumentLink} btn`}
@@ -96,12 +97,16 @@ export default function OurInstrumentsPage() {
                 </button>
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
       </section>
 
       {selectedInstrument && (
-        <section className={`${styles.section} ${selectedInstrument.isActive ? 'bg-white' : 'd-none'}`}>
+        <section
+          className={`${styles.section} ${
+            selectedInstrument.isActive ? 'bg-white' : 'd-none'
+          }`}
+        >
           <div className="container">
             <div className="row">
               <div className="col-lg-9">
@@ -109,7 +114,10 @@ export default function OurInstrumentsPage() {
                   <div className={`${styles.mainHead} align-items-start`}>
                     <h2>{selectedInstrument.instrumentName}</h2>
                     <div className={`${styles.callAction} gap-3`}>
-                      <button className={`${styles.lpuBtn} m-2`} onClick={handleOpenChargesModal}>
+                      <button
+                        className={`${styles.lpuBtn} m-2`}
+                        onClick={handleOpenChargesModal}
+                      >
                         Charges
                       </button>
                       <Link href="/Login" className={styles.lpuBtn}>
@@ -121,25 +129,39 @@ export default function OurInstrumentsPage() {
 
                 <div className="mb-5">
                   <img
-                    src={selectedInstrument.imageUrl || '/images/instrument-placeholder.jpg'}
+                    src={
+                      selectedInstrument.imageUrl ||
+                      '/images/instrument-placeholder.jpg'
+                    }
                     alt="Instrument"
                     style={{ maxHeight: '200px', objectFit: 'contain' }}
                   />
                 </div>
 
-                <p dangerouslySetInnerHTML={{ __html: selectedInstrument.description }}></p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: selectedInstrument.description
+                  }}
+                ></p>
               </div>
 
               <div className="col-lg-3">
                 <div className="section-light-red p-3">
                   <h4 className="font-primary white mb-3">Specifications:</h4>
-                  <ul className={styles.specifications + " text-white "}>
-                    {specifications.filter(spec => spec.categoryId === selectedInstrument.categoryId).length > 0 ? (
+                  <ul className={styles.specifications + ' text-white '}>
+                    {specifications.filter(
+                      (spec) =>
+                        spec.categoryId === selectedInstrument.categoryId
+                    ).length > 0 ? (
                       specifications
-                        .filter(spec => spec.categoryId === selectedInstrument.categoryId)
+                        .filter(
+                          (spec) =>
+                            spec.categoryId === selectedInstrument.categoryId
+                        )
                         .map((spec, index) => (
                           <li key={index}>
-                            <strong className="d-block">{spec.keyName}:</strong> {spec.keyValue}
+                            <strong className="d-block">{spec.keyName}:</strong>{' '}
+                            {spec.keyValue}
                           </li>
                         ))
                     ) : (
@@ -153,10 +175,171 @@ export default function OurInstrumentsPage() {
         </section>
       )}
 
-      <InstrumentChargesModal show={showChargesModal} onClose={handleCloseChargesModal} />
+      <InstrumentChargesModal
+        show={showChargesModal}
+        onClose={handleCloseChargesModal}
+      />
     </>
   );
 }
+
+// 'use client';
+
+// import React, { useEffect, useState } from 'react';
+// import Link from 'next/link';
+// import styles from './Instruments.module.css';
+// import InstrumentChargesModal from './ChargesModal';
+// import { GetAllInstrumentsData, FetchSpecifications } from '../apiCalls/apiCall';
+// import { useSearchParams } from 'next/navigation';
+
+// interface Specification {
+//   id: number;
+//   categoryId: number;
+//   keyName: string;
+//   keyValue: string;
+// }
+
+// interface Instrument {
+//   id: number;
+//   instrumentName: string;
+//   categoryId: number;
+//   isActive: boolean;
+//   description: string;
+//   imageUrl: string;
+// }
+
+// export default function OurInstrumentsPage() {
+//   const [instruments, setInstruments] = useState<Instrument[]>([]);
+//   const [specifications, setSpecifications] = useState<Specification[]>([]);
+//   const [selectedInstrument, setSelectedInstrument] = useState<Instrument | null>(null);
+//   const [showChargesModal, setShowChargesModal] = useState(false);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const [instrumentData, specData] = await Promise.all([
+//           GetAllInstrumentsData(),
+//           FetchSpecifications()
+//         ]);
+//         setInstruments(instrumentData || []);
+//         setSpecifications(specData || []);
+
+        
+//       const params = new URLSearchParams(window.location.search);
+//       const selectedId = params.get('id');
+      
+//       if (selectedId && instrumentData) {
+//         const selected = instrumentData.find(
+//           (inst: any) => inst.id.toString() === selectedId
+//         );
+//         if (selected) {
+//           setSelectedInstrument(selected);
+//         }
+//       }
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   const handleInstrumentClick = (instrument: Instrument) => {
+//     setSelectedInstrument(instrument);
+//   };
+
+//   const handleOpenChargesModal = () => setShowChargesModal(true);
+//   const handleCloseChargesModal = () => setShowChargesModal(false);
+
+//   return (
+//     <>
+//       <section className={styles.section}>
+//         <div className={`${styles.container} container`}>
+//           <div className={`${styles.headingWraper} mb-4`}>
+//             <div className={styles.mainHead}>
+//               <h1>About the Instruments</h1>
+//             </div>
+//           </div>
+//           <p>
+//             CIF of Lovely Professional University is equipped with sophisticated instruments to carry out spectral
+//             measurements, structure determination and chemical analysis. Click on the instrument name in the following
+//             table to view their description.
+//           </p>
+
+//           <div className={styles.instrumentGrid} id="instrumentGrid">
+//              {instruments.map((instrument) => (
+//                <div
+//                  key={instrument.id}
+//                  className={styles.instrumentBlock + ` g-col-lg-3 g-col-6 d-grid ${selectedInstrument?.id === instrument.id ? 'selected-instrument' : ''
+//                    }`}
+//                >
+//                  <button className={styles.instrumentLink + " btn "} onClick={() => handleInstrumentClick(instrument)} data-is-active={instrument.isActive ? 'true' : 'false'} >
+//                    {instrument.instrumentName}
+//                  </button>
+//                </div>
+//              ))}
+//            </div>
+
+//            </div>
+//       </section>
+
+//       {selectedInstrument && (
+//         <section className={`${styles.section} ${selectedInstrument.isActive ? 'bg-white' : 'd-none'}`}>
+//           <div className="container">
+//             <div className="row">
+//               <div className="col-lg-9">
+//                 <div className={`${styles.headingWraper} mb-4`}>
+//                   <div className={`${styles.mainHead} align-items-start`}>
+//                     <h2>{selectedInstrument.instrumentName}</h2>
+//                     <div className={`${styles.callAction} gap-3`}>
+//                       <button className={`${styles.lpuBtn} m-2`} onClick={handleOpenChargesModal}>
+//                         Charges
+//                       </button>
+//                       <Link href="/Login" className={styles.lpuBtn}>
+//                         Login/Register
+//                       </Link>
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 <div className="mb-5">
+//                   <img
+//                     src={selectedInstrument.imageUrl || '/images/instrument-placeholder.jpg'}
+//                     alt="Instrument"
+//                     style={{ maxHeight: '200px', objectFit: 'contain' }}
+//                   />
+//                 </div>
+
+//                 <p dangerouslySetInnerHTML={{ __html: selectedInstrument.description }}></p>
+//               </div>
+
+//               <div className="col-lg-3">
+//                 <div className="section-light-red p-3">
+//                   <h4 className="font-primary white mb-3">Specifications:</h4>
+//                   <ul className={styles.specifications + " text-white "}>
+//                     {specifications.filter(spec => spec.categoryId === selectedInstrument.categoryId).length > 0 ? (
+//                       specifications
+//                         .filter(spec => spec.categoryId === selectedInstrument.categoryId)
+//                         .map((spec, index) => (
+//                           <li key={index}>
+//                             <strong className="d-block">{spec.keyName}:</strong> {spec.keyValue}
+//                           </li>
+//                         ))
+//                     ) : (
+//                       <li>No specifications available.</li>
+//                     )}
+//                   </ul>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </section>
+//       )}
+
+//       <InstrumentChargesModal show={showChargesModal} onClose={handleCloseChargesModal} />
+//     </>
+//   );
+// }
 
 
 // 'use client';

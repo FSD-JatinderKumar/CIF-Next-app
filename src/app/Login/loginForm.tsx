@@ -1,10 +1,11 @@
 'use client';
-
+import styles from '../Register/Register.module.css';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GetAuthoriseUserData,saveUser, LoginJournalAccessTemp, addToCifSession ,addToSession} from '@/app/apiCalls/apiCall'
 import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 
 type FormData = {
@@ -110,6 +111,7 @@ export default function LoginForm() {
   };
 
   return (
+    
     <form onSubmit={handleSubmit(onSubmit)} className="forms-sample">
       {/* Email */}
       <div className="mb-4 cif-input-group">
@@ -162,6 +164,19 @@ export default function LoginForm() {
           <a href="/InternalLogin" className="link-btn" style={{ color: '#ef7d00' }}> LPU User Login</a>
           <a href="/RecoverAccount" className="link-btn" style={{ color: '#ef7d00' }}>Recover Account</a>
         </div>
+      </div>
+      <div className="col-md-12 mb-3">
+        <span className='d-flex justify-content-start '>Don’t have an account?
+        <a href="/Register" className=" ms-3 link-btn" style={{ color: '#ef7d00' }}> Register </a>
+        {/* <Link href="/Register" className={' ms-4 ' + styles.lpuBtn}>
+          Sign Up
+        </Link> */}
+        </span>
+      </div>
+      <div className="col-md-12 mb-3">
+        <span className='d-flex justify-content-start '> 
+        By Login you agree with terms and conditions and privacy policy
+        </span>
       </div>
     </form>
   );

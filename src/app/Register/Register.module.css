@@ -1,0 +1,40 @@
+.cifLogin, .cifRegister  {
+  background-color: rgba(0, 0, 0, .05);
+  padding: 15px;
+}
+
+.cifLogin i,
+.cifRegister i {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  font-size: 20px;
+  color: #535353;
+}
+.cifLogin i.inputUser,
+.cifRegister i.inputUser {
+  width: 15px;
+  height: 15px;
+  background-image: url(/images/icons/input-user.svg);
+  display: block;
+  background-size: cover;
+  margin-right: 25px;
+}
+.cifLogin i.inputEye,
+.cifRegister i.inputEye {
+  width: 15px;
+  height: 15px;
+  background-image: url(/images/icons/input-eye.svg);
+  display: block;
+  background-size: cover;
+  margin-right: 25px;
+}
+.cifLogin i.inputEyeSlash,
+.cifRegister i.inputEyeSlash {
+  width: 15px;
+  height: 15px;
+  background-image: url(/images/icons/input-eye-slash.svg);
+  display: block;
+  background-size: cover;
+  margin-right: 25px;
+}

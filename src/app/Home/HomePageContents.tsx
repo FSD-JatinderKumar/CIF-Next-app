@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-
+import { useRouter } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { GetAllInstrumentsData } from '../apiCalls/apiCall';
 import LoadingScreen from '../../../components/LoadingScreen/LoadingScreen';
@@ -11,7 +11,7 @@ export default function HomePageContents() {
     const [instrumentData, setInstrumentData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [loadingStates, setLoadingStates] = useState<boolean[]>([]);
-
+    const router = useRouter();
     // Handle image load event
     const onImageLoad = (index: number) => {
         setLoadingStates((prev) => {
@@ -30,10 +30,20 @@ export default function HomePageContents() {
         });
     };
 
-    const visitUrl = (url: string, name: string, id: string, categoryId: string) => {
-        // Logic for URL navigation (e.g., passing URL parameters)
-        // In Next.js, you would use the `Link` component or `useRouter` for dynamic navigation
-    };
+    const visitUrl = (instrument: any) => {
+        const name = instrument.instrumentName;
+        const id = instrument.id;
+        const categoryId = instrument.categoryId;
+      
+        router.push(
+          `/ourInstruments?id=${id}&name=${encodeURIComponent(name)}&categoryId=${categoryId}`
+        );
+      };
+      
+    // const visitUrl = (url: string, name: string, id: string, categoryId: string) => {
+    //     // Logic for URL navigation (e.g., passing URL parameters)
+    //     // In Next.js, you would use the `Link` component or `useRouter` for dynamic navigation
+    // };
 
     useEffect(() => {
         setTimeout(() => {
@@ -43,15 +53,10 @@ export default function HomePageContents() {
             setLoading(false);
         }, 1500);
 
-
-
-
-        // Fetch reviewers data
-
     }, []);
     return (
         <>
-            <section className="section  bg-dark-yellow pb-0">
+            <section className="section bg-dark-yellow pb-0">
                 <div className="container">
                     <div className="heading-wraper mb-4">
                         <div className="main-head">
@@ -120,9 +125,6 @@ export default function HomePageContents() {
                         <div className="main-head">
                             <h2>Facilities</h2>
                             <div className="call-action">
-                                {/* <a href="/ourInstruments" className="link-btn">                                        
-                                        Know more
-                                    </a> */}
                                     <Link href="/ourInstruments" className="link-btn">
                                     <img src="https://www.lpu.in/lpu-assets/images/icons/chevron-right.svg" alt="Icon" />Know more
                                     </Link>
@@ -160,14 +162,8 @@ export default function HomePageContents() {
                                 <div className="mb-5">
                                     <div className="instrument-block g-col-lg-3 g-col-6 d-grid">
                                         <a
-                                            href="javascript:void(0)"
                                             onClick={() =>
-                                                visitUrl(
-                                                    '/ourInstruments',
-                                                    InstrumentData.instrumentName.slice(0, 10),
-                                                    InstrumentData.id,
-                                                    InstrumentData.categoryId
-                                                )
+                                                visitUrl(InstrumentData)
                                             }
                                             data-is-active={InstrumentData.isActive ? 'true' : 'false'}
                                         >
@@ -180,13 +176,6 @@ export default function HomePageContents() {
                     </div>
                 </div>
             </section>
-            {/* New Section to be added  */}
-
-
-            {/* <div style={{ "display": "none" }}>
-                <img *ngFor="let InstrumentData of instrumentData" [src]="InstrumentData.imageUrl"
-                alt="{{ InstrumentData.instrumentName }}">*****
-            </div> */}
             <section className="section industry-partners-grid">
                 <div className="container">
                     <div className="placement-grid align-items-center">
