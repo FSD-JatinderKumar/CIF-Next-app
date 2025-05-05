@@ -57,3 +57,17 @@ export const GetAllInstrumentsData = async () => {
   }
 }
  
+export const GetUserAllBookingSlot = async (UserEmailId: string) => {
+  try {
+     
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/LpuCIF/GetAllUserBookingSlot?UserId=${UserEmailId}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    // console.log(JSON.stringify(response))
+    return response.data.item1 || [];
+  } catch (error) {
+    console.error('Error fetching Slots data:', error);
+    throw error;
+  }
+}
+ 
